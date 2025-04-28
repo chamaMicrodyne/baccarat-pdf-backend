@@ -1,14 +1,13 @@
 const { google } = require('googleapis');
 const fs = require('fs').promises;
 const path = require('path');
+const os = require('os'); // Import os to access /tmp
 
 module.exports = async (req, res) => {
-  // Handle CORS
   res.setHeader('Access-Control-Allow-Origin', 'https://bbkriket.com');
   res.setHeader('Access-Control-Allow-Methods', 'POST');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  // Handle CORS preflight
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
@@ -30,7 +29,7 @@ module.exports = async (req, res) => {
 
     const drive = google.drive({ version: 'v3', auth });
     const pdfBuffer = Buffer.from(pdfData, 'base64');
-    const tempFilePath = path.join(__dirname, `Baccarat_Game_History_${roundId}.pdf`);
+    const tempFilePath = path.join(os.tmpdir(), `Baccarat_Game_History_${roundId}.pdf`); // Use /tmp
     await fs.writeFile(tempFilePath, pdfBuffer);
 
     const fileMetadata = {
@@ -49,7 +48,7 @@ module.exports = async (req, res) => {
       fields: 'id',
     });
 
-    await fs.unlink(tempFilePath);
+    await fs.unlink(tempFilePath); // Clean up the temp file
     res.json({ success: true, fileId: response.data.id });
   } catch (error) {
     console.error('Error:', error);
