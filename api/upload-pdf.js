@@ -17,9 +17,9 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const { pdfData, roundId } = req.body;
-    if (!pdfData || !roundId) {
-      return res.status(400).json({ success: false, error: 'Missing pdfData or roundId' });
+    const { pdfData, gameName } = req.body;
+    if (!pdfData || !gameName) {
+      return res.status(400).json({ success: false, error: 'Missing pdfData or gameName' });
     }
 
     const auth = new google.auth.GoogleAuth({
@@ -29,11 +29,11 @@ module.exports = async (req, res) => {
 
     const drive = google.drive({ version: 'v3', auth });
     const pdfBuffer = Buffer.from(pdfData, 'base64');
-    const tempFilePath = path.join(os.tmpdir(), `Baccarat_Game_History_${roundId}.pdf`); // Use /tmp
+    const tempFilePath = path.join(os.tmpdir(), gameName); // Use /tmp
     await fs.writeFile(tempFilePath, pdfBuffer);
 
     const fileMetadata = {
-      name: `Baccarat_Game_History_${roundId}.pdf`,
+      name: gameName,
       parents: ['1dqOfJTTV19Q-wo3eN9Grv2ghlK58UdvX'],
     };
 
