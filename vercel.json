@@ -1,0 +1,15 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "api/upload-pdf.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/upload-pdf",
+        "dest": "api/upload-pdf.js"
+      }
+    ]
+  }

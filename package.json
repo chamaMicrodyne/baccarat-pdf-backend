@@ -1,0 +1,23 @@
+{
+  "name": "baccarat-pdf-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chamaMicrodyne/baccarat-pdf-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chamaMicrodyne/baccarat-pdf-backend/issues"
+  },
+  "homepage": "https://github.com/chamaMicrodyne/baccarat-pdf-backend#readme",
+  "dependencies": {
+    "googleapis": "^148.0.0"
+  }
+}
